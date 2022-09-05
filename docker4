@@ -1,0 +1,37 @@
+bridge netwrk
+communicate with container on host
+
+docker network ls...> to show the docker network
+
+how default bridge work
+
+docker inspect network
+container join default network if manually  not specified
+docker attach container name to go inside the container
+
+28
+
+run apt-get update once before the install:
+
+sudo docker run ubuntu apt-get update
+
+apt-get install iputils-ping
+
+to install ping in docker container use the command
+apt-get update && apt-get install -y iputils-ping
+
+
+default neetwork on 1ip
+in case of default brifge network contianer an talk with ip address
+
+Custom bridge
+
+to create custom bridge use the command
+docker network create --driver bridge klasus
+
+
+to create the custom bridge along with the contianer
+
+docker run -itd --name container5 --network klasus ubuntu
+docker network inspect
+ping container5

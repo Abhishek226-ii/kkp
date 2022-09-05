@@ -1,0 +1,46 @@
+Creating Container3 and DataVolume3
+
+We use docker run to set up a new container called Container3 as below:
+
+docker run -ti --name=Container3 -v NewVol3:/newvol3 ubuntu
+
+We then add some text to a new file as shown below:
+
+root@1ef4d68f08b2:/# echo "Shared container file" > /newvol3/Example3.txt
+root@1ef4d68f08b2:/# exit
+exit
+
+We then exit the container and navigate to the host terminal where we create a new container that attaches data volume from Container3.
+Create Container4 and attach volumes from Container3
+
+Let’s attach Container3 to the newly created Container4 as shown below:
+
+docker run -ti --name=Container4 --volumes-from Container3 ubuntu
+
+The data consistency is checked as shown:
+
+root@d19c4e150495:/# cat /newvol3/Example3.txt
+Shared container file
+root@d19c4e150495:/#
+
+At this point, let’s append some texts from Container4 then exit the container:
+
+root@d19c4e150495:/# echo "Both containers can write to NewVol3" >> /newvol3/Example3.txt
+root@d19c4e150495:/# exit
+exit
+
+Subsequently, we’ll check if our data is still present in Container3.
+Container4 changes
+
+We can check for changes in the Docker volume by refreshing Container3:
+
+docker start -ai Container3
+
+The commands below confirm if all containers were able to read and write from the Docker volume and then exit the environment:
+
+root@1ef4d68f08b2:/# cat /newvol3/Example3.txt
+Shared container file
+Both containers can write to NewVol3
+root@1ef4d68f08b2:/# exit
+exit
+

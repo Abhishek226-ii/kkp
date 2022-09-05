@@ -1,0 +1,53 @@
+container do not have ip address
+80 port in http present also in container and ec2 instance
+we cant change the port of container
+we can connect the container and user through port mapping
+map menas host and container mapped
+docker run -td --nmae techserver -p 80:80 host:container
+-td onnly for dokcer not go inside the container
+expose command only container can talk but cant connect to other user
+
+docker port--> details about the port
+
+docker attach.. main process in container
+docker exec..> take u inside the container nad start the new process
+
+difference betweeen docker execute and docker attach
+
+docker exec creates a new process in the container environmnet while docker atach just connect the standard input/op of the main process isnside the ccontainer to corresponding standard i/op error of current terminal
+
+docker exec is specifically used for running new things
+
+difference between expose and publish a docker
+
+BAsically you have three options:-
+
+neither specify expose nor -p
+only specify expose
+specify expose and -p
+
+if you neither expose nor -p the service in the container will only be accessible from inside the container itself
+
+if you expose a port the service in container is not accessible from outside docker but from inside other docker containers so this is good for inter container communication
+
+if u expose and -p a port, the service in the container is accessible from anywhere evven outside docker.
+
+if u do -p but do not expose docekr does an implicit expose this is because, if a port is open to the public, it is automatically also to the other docker container hence -p includees.
+
+to create the container only for showing not going inside
+ docker run -td --name techserver -p 80:80 ubuntu /bin/bash
+here we create a container name tech server on port 80 and the image is ubuntu
+
+docker port techserver..> to check the port server
+docker exec -it techserver /bin/bash ..> to go into the container
+
+ cd /var/www/html
+root@ff0303bd55cc:/var/www/html# echo "this is a checking webstie" >index.html
+root@ff0303bd55cc:/var/www/html# service apache2 restart
+
+
+
+
+
+
+
